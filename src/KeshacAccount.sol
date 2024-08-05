@@ -16,20 +16,20 @@ contract KeshacAccount is IAccount, Ownable {
     /*//////////////////////////////////////////////////////////////
                                  ERRORS
 //////////////////////////////////////////////////////////////*/
-    error MinimalAccount__NotFromEntryPoint();
-    error MinimalAccount__NotFromEntryPointOrOwner();
-    error MinimalAccount__CallFailed(result);
+    error KeshacAccount__NotFromEntryPoint();
+    error KeshacAccount__NotFromEntryPointOrOwner();
+    error KeshacAccount__CallFailed(bytes result);
 
     modifier requireFromEntryPoint() {
         if (msg.sender != address(i_entryPoint)) {
-            revert MinimalAccount__NotFromEntryPoint();
+            revert KeshacAccount__NotFromEntryPoint();
         }
         _;
     }
 
     modifier requireFromEntryPointOrOwner() {
         if (msg.sender != address(i_entryPoint) && msg.sender != owner()) {
-            revert MinimalAccount__NotFromEntryPointOrOwner();
+            revert KeshacAccount__NotFromEntryPointOrOwner();
         }
         _;
     }
@@ -63,7 +63,7 @@ contract KeshacAccount is IAccount, Ownable {
             functionData
         );
         if (!success) {
-            revert MinimalAccount__CallFailed(result);
+            revert KeshacAccount__CallFailed(result);
         }
     }
 
